@@ -90,7 +90,7 @@ jobs:
 
       - name: Install macpro-mdct-tools dependencies
         run: |
-          pushd macpro-mdct-tools
+          pushd macpro-mdct-tools/scripts
           if [ -f yarn.lock ]; then yarn install --frozen-lockfile || yarn install; elif [ -f package.json ]; then yarn install; fi
           popd
 
