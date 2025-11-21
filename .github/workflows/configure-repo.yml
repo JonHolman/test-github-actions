@@ -60,4 +60,30 @@ jobs:
               console.log('⚠️ No branch protection rules found in config');
             }
 
+            // ========================================
+            // CONFIGURE ENVIRONMENTS
+            // ========================================
+            if (config.environments && config.environments.length > 0) {
+              console.log('🌍 Configuring Environments\n');
+              
+              for (const env of config.environments) {
+                console.log(`   Configuring environment: ${env.name}`);
+                
+                await github.rest.repos.createOrUpdateEnvironment({
+                  owner,
+                  repo,
+                  environment_name: env.name,
+                  wait_timer: env.wait_timer,
+                  prevent_self_review: env.prevent_self_review,
+                  reviewers: env.reviewers,
+                  deployment_branch_policy: env.deployment_branch_policy
+                });
+                
+                console.log(`   ✅ ${env.name} configured successfully`);
+              }
+              console.log('');
+            } else {
+              console.log('⚠️ No environments found in config');
+            }
+
             console.log('🎉 All repository settings applied successfully!');
