@@ -39,7 +39,7 @@ jobs:
             // ========================================
             // CONFIGURE BRANCH PROTECTION RULES
             // ========================================
-            if (config.branchProtection && false) {
+            if (config.branchProtection) {
               console.log('🔒 Configuring Branch Protection Rules\n');
               
               for (const [branch, rules] of Object.entries(config.branchProtection)) {
@@ -72,10 +72,7 @@ jobs:
                   owner,
                   repo,
                   environment_name: env.name,
-                  wait_timer: env.wait_timer,
-                  prevent_self_review: env.prevent_self_review,
-                  reviewers: env.reviewers,
-                  deployment_branch_policy: env.deployment_branch_policy
+                  ...env
                 });
                 
                 console.log(`   ✅ ${env.name} configured successfully`);
