@@ -83,7 +83,7 @@
   },
   "environments": [
     {
-      "name": "production",
+      "environment_name": "production",
       "wait_timer": 0,
       "prevent_self_review": true,
       "reviewers": null,
@@ -93,7 +93,7 @@
       }
     },
     {
-      "name": "val",
+      "environment_name": "val",
       "wait_timer": 0,
       "prevent_self_review": false,
       "reviewers": null,
@@ -103,7 +103,7 @@
       }
     },
     {
-      "name": "dev",
+      "environment_name": "dev",
       "wait_timer": 0,
       "prevent_self_review": false,
       "reviewers": null,

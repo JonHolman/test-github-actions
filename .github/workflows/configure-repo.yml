@@ -71,11 +71,10 @@ jobs:
                 await github.rest.repos.createOrUpdateEnvironment({
                   owner,
                   repo,
-                  environment_name: env.name,
                   ...env
                 });
                 
-                console.log(`   ✅ ${env.name} configured successfully`);
+                console.log(`   ✅ ${env.environment_name} configured successfully`);
               }
               console.log('');
             } else {
