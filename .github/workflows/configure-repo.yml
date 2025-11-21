@@ -40,7 +40,7 @@ jobs:
             // ========================================
             // CONFIGURE BRANCH PROTECTION RULES
             // ========================================
-            if (config.branchProtection) {
+            if (config.branchProtection && false) {
               console.log('🔒 Configuring Branch Protection Rules\n');
               
               for (const [branch, rules] of Object.entries(config.branchProtection)) {
