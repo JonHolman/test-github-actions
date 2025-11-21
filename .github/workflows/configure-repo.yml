@@ -62,7 +62,7 @@ jobs:
             // ========================================
             // CONFIGURE ENVIRONMENTS
             // ========================================
-            if (config.environments && config.environments.length > 0) {
+            if (false && config.environments && config.environments.length > 0) {
               console.log('🌍 Configuring Environments\n');
               
               for (const env of config.environments) {
