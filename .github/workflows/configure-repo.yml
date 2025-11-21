@@ -1,0 +1,64 @@
+name: Configure Repository Settings
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/repo-settings.json"
+
+jobs:
+  configure-repo:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Apply Settings from JSON
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.PAT_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            const { owner, repo } = context.repo;
+
+            const configPath = path.join(process.cwd(), '.github', 'repo-settings.json');
+            console.log(`📦 Loading config from: ${configPath}`);
+
+            if (!fs.existsSync(configPath)) {
+              throw new Error(`Configuration file not found at ${configPath}`);
+            }
+
+            const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+            console.log(`✅ Configuration loaded successfully\n`);
+
+            // ========================================
+            // CONFIGURE BRANCH PROTECTION RULES
+            // ========================================
+            if (config.branchProtection) {
+              console.log('🔒 Configuring Branch Protection Rules\n');
+              
+              for (const [branch, rules] of Object.entries(config.branchProtection)) {
+                console.log(`   Protecting branch: ${branch}`);
+                
+                await github.rest.repos.updateBranchProtection({
+                  owner,
+                  repo,
+                  branch,
+                  ...rules
+                });
+                
+                console.log(`   ✅ ${branch} configured successfully`);
+              }
+              console.log('');
+            } else {
+              console.log('⚠️ No branch protection rules found in config');
+            }
+
+            console.log('🎉 All repository settings applied successfully!');

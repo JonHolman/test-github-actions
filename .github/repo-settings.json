@@ -1,0 +1,36 @@
+{
+  "branchProtection": {
+    "main": {
+      "allow_fork_syncing": false
+    }
+  },
+  "environments": [
+    {
+      "name": "production",
+      "wait_timer": 0,
+      "prevent_self_review": true,
+      "reviewers": null,
+      "deployment_branch_policy": {
+        "protected_branches": true,
+        "custom_branch_policies": false
+      }
+    },
+    {
+      "name": "val",
+      "wait_timer": 0,
+      "prevent_self_review": false,
+      "reviewers": null,
+      "deployment_branch_policy": {
+        "protected_branches": true,
+        "custom_branch_policies": false
+      }
+    },
+    {
+      "name": "dev",
+      "wait_timer": 0,
+      "prevent_self_review": false,
+      "reviewers": null,
+      "deployment_branch_policy": null
+    }
+  ]
+}
